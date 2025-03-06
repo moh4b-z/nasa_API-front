@@ -29,7 +29,7 @@ async function getRandomSpaceImage() {
     const images = data.collection.items
     if (images.length > 0) {
         const randomIndex = Math.floor(Math.random() * images.length)
-        return images[randomIndex].links[0].href // URL da imagem aleatória
+        return images[randomIndex].links[0].href
     }
     return null // Caso não encontre imagens
 }
@@ -45,3 +45,23 @@ BackgroundImageRandom()
 
 
 
+const logo = {img: "nasalogo.png"}
+async function rendersLogo(url) {
+    const menu = document.getElementById('opcoes')
+    const logo = document.createElement('img')
+    logo.id = "logo"
+    logo.alt = "Logo da NASA"
+    logo.src = `./img/${url}`
+
+    menu.appendChild(logo)
+}
+rendersLogo(logo.img)
+
+async function rendersImagesAndIcons(url) {
+    const menu = document.getElementById('opcoes')
+    const logo = document.createElement('img')
+    logo.src = url
+    
+
+    menu.appendChild(logo)
+}
