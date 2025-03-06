@@ -46,7 +46,7 @@ body{
     justify-content: center;
     width: 100vw;
     height: 100vh;
-    background-color: #00000054;
+    background-color: #00000037;
 }
 
 #visualisacao{
@@ -58,11 +58,23 @@ body{
 }
 
 #opcoes{
+    position: relative;
     min-width: 230px;
     width: 20vw;
     min-height: 30px;
     height: 4vh;
     background-color: #ffffff;
     border-radius: 50px;
-    border: 1px solid #9c9c9c;
+    border: 3px solid #9c9c9c;
+}
+
+#logo{
+    position: absolute;
+    left: 50%;
+    top: -60%;
+    transform: translate(-50%, -50%);
+    min-width: 60px;
+    width: 5vw;
+    min-height: 60px;
+    height: 5vw;
 }
