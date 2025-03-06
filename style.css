@@ -21,3 +21,48 @@ input{
     border: none;
     outline: none;
 }
+
+:root{
+    --azul: #2A2F96;
+    --rednasa: #E31621;
+    --fundo: url();
+}
+
+body{
+    display: flex;
+    flex-direction: column;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    background-image: var(--fundo);
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.filtro{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100vw;
+    height: 100vh;
+    background-color: #00000054;
+}
+
+#visualisacao{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: auto;
+    width: auto;
+}
+
+#opcoes{
+    min-width: 230px;
+    width: 20vw;
+    min-height: 30px;
+    height: 4vh;
+    background-color: #ffffff;
+    border-radius: 50px;
+    border: 1px solid #9c9c9c;
+}
