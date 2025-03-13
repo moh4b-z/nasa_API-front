@@ -76,7 +76,7 @@ body{
 #logo{
     position: absolute;
     left: 50%;
-    top: -60%;
+    top: -55%;
     transform: translate(-50%, -50%);
     min-width: 60px;
     width: 5vw;
@@ -84,7 +84,7 @@ body{
     height: 5vw;
 }
 
-#opcoes button img{
+#opcoes button{
     min-width: 25px;
     width: 4vw;
     min-height: 25px;
@@ -93,12 +93,23 @@ body{
     padding: 2px;
     background-color: #9c9c9c;
     overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-#opcoes button img{
+#opcoes button .icons{
     min-width: 20px;
     width: 2vw;
     min-height: 20px;
     height: 2vw;
-    color: rgb(0, 105, 197);
+    background-color: var(--rednasa);
+}
+#planet{
+    -webkit-mask: url('./icons/planet-sharp.svg') no-repeat center / contain;
+    mask: url('./icons/planet-sharp.svg') no-repeat center / contain;
+}
+#star{
+    -webkit-mask: url('./icons/sunny.svg') no-repeat center / contain;
+    mask: url('./icons/sunny.svg') no-repeat center / contain;
 }
