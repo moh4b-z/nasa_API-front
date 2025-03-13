@@ -23,8 +23,9 @@ input{
 }
 
 :root{
-    --azul: #2A2F96;
-    --rednasa: #E31621;
+    --blue-nasa: #2A2F96;
+    --red-nasa: #E31621;
+    --gray-nasa: #9c9c9c;
     --fundo: url();
 }
 
@@ -34,9 +35,11 @@ body{
     width: 100vw;
     height: 100vh;
     overflow: hidden;
+    background-color: var(--blue-nasa);
     background-image: var(--fundo);
     background-size: cover;
     background-repeat: no-repeat;
+    transform: 1s;
 }
 
 .filtro{
@@ -63,13 +66,14 @@ body{
     width: 20vw;
     min-height: 50px;
     height: 4vh;
-    background-color: #ffffff;
+    background-color: white;
     border-radius: 50px;
-    border: 3px solid #9c9c9c;
+    border: 3px solid var(--gray-nasa);
     display: flex;
     align-items: center;
     justify-content: space-between;
     padding: 5px;
+    padding-inline: 2vh;
 }
 
 
@@ -86,30 +90,34 @@ body{
 
 #opcoes button{
     min-width: 25px;
-    width: 4vw;
+    width: 3vh;
     min-height: 25px;
-    height: 4vw;
+    height: 3vh;
     border-radius: 50%;
     padding: 2px;
-    background-color: #9c9c9c;
+    background-color: var(--gray-nasa);
     overflow: hidden;
     display: flex;
     align-items: center;
     justify-content: center;
+    transition: 0.5s;
+}
+#opcoes button:hover{
+    transform: scale(1.2);
 }
 
 #opcoes button .icons{
     min-width: 20px;
-    width: 2vw;
+    width: 2vh;
     min-height: 20px;
-    height: 2vw;
-    background-color: var(--rednasa);
+    height: 2vh;
+    background-color: var(--red-nasa);
 }
-#planet{
-    -webkit-mask: url('./icons/planet-sharp.svg') no-repeat center / contain;
-    mask: url('./icons/planet-sharp.svg') no-repeat center / contain;
+/* #planet{
+    -webkit-mask: url('./icons/planet.svg');
+    mask: url('./icons/planet.svg');
 }
 #star{
-    -webkit-mask: url('./icons/sunny.svg') no-repeat center / contain;
-    mask: url('./icons/sunny.svg') no-repeat center / contain;
-}
+    -webkit-mask: url('./icons/star.svg');
+    mask: url('./icons/star.svg');
+} */

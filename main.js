@@ -14,15 +14,9 @@ async function getSpaceImageDay() {
     return data
 }
 
-async function BackgroundImageDay() {
-    const imageUrl = await getRandomSpaceImage()
-    document.documentElement.style.setProperty("--fundo", `url(${imageUrl})`)
-}
 
-// BackgroundImageDay()
-
-async function getRandomSpaceImage() {
-    const url = "https://images-api.nasa.gov/search?q=supernova&media_type=image";
+async function getRandomSpaceImage(IWant) {
+    const url = `https://images-api.nasa.gov/search?q=${IWant}&media_type=image`;
     const response = await fetch(url)
     const data = await response.json()
 
@@ -34,16 +28,16 @@ async function getRandomSpaceImage() {
     return null // Caso não encontre imagens
 }
 
-async function BackgroundImageRandom() {
-    const imageUrl = await getRandomSpaceImage()
+const IMGreserve = {reserveIMG: "reserveImg.jpeg"}
+async function BackgroundImageRandom(reserve) {
+    const imageUrl = await getRandomSpaceImage("supernova")
+    const reserveIMG = reserve.reserveIMG
     if (imageUrl) {
         document.documentElement.style.setProperty("--fundo", `url(${imageUrl})`)
+    }else{
+        document.documentElement.style.setProperty("--fundo", `url(./img/${reserveIMG})`)
     }
 }
-
-BackgroundImageRandom()
-
-
 
 const logo = {img: "nasalogo.png"}
 async function rendersLogo(url) {
@@ -55,13 +49,37 @@ async function rendersLogo(url) {
 
     menu.appendChild(logo)
 }
-rendersLogo(logo.img)
 
-async function rendersImagesAndIcons(url) {
+
+const icons = {SVG: [
+    {name: "Planet", SVG: "planet.svg"},
+    {name: "Star", SVG: "star.svg"}
+]}
+
+async function rendersIcons(objectSVG) {
     const menu = document.getElementById('opcoes')
-    const logo = document.createElement('img')
-    logo.src = url
-    
+    const button = document.createElement('button')
+    const icon = document.createElement('div')
 
-    menu.appendChild(logo)
+    button.className = `button${objectSVG.name}`
+    icon.className = "icons"
+    icon.id = `${objectSVG.name}`
+    
+    
+    // Definindo a URL da imagem como máscara
+    const maskUrl = `url('./icons/${objectSVG.SVG}')`;
+
+    icon.style.maskImage = maskUrl; 
+    icon.style.maskSize = 'contain';
+    icon.style.maskPosition = 'center';
+    icon.style.maskRepeat = 'no-repeat';
+
+    
+    button.appendChild(icon)
+    menu.appendChild(button)
 }
+
+
+BackgroundImageRandom(IMGreserve)
+rendersLogo(logo.img)
+icons.SVG.forEach(rendersIcons)
