@@ -41,7 +41,7 @@ async function BackgroundImageRandom(reserve) {
 
 const logo = {img: "nasalogo.png"}
 async function rendersLogo(url) {
-    const menu = document.getElementById('opcoes')
+    const menu = document.getElementById('area-opcoes')
     const logo = document.createElement('img')
     logo.id = "logo"
     logo.alt = "Logo da NASA"
@@ -58,25 +58,47 @@ const icons = {SVG: [
 
 async function rendersIcons(objectSVG) {
     const menu = document.getElementById('opcoes')
+    const menuBaixo = document.getElementById('baixo-opcoes')
+    
+
+    const button = editarIcon(objectSVG.name, objectSVG.SVG)
+    button.addEventListener('click', () => {
+        menuBaixo.style.display = 'flex'
+        menuBaixo.style.top = '0%'
+        document.querySelectorAll('#opcoes button').forEach(button => button.style.display = 'none')
+        
+        document.querySelector(`#baixo-opcoes .${button.className}`).style.display = 'none'
+    })
+    const buttonBaixo = editarIcon(objectSVG.name, objectSVG.SVG)
+    buttonBaixo.addEventListener('click', () => {
+        // Esconde o botão clicado
+        buttonBaixo.style.top = '-100%'
+        // Mostra apenas o botão correspondente da primeira div
+        document.querySelectorAll('#opcoes button').forEach(button => button.style.display = 'none');
+        document.querySelector(`#opcoes .${button.className}`).style.display = 'flex';
+    })
+
+    menu.appendChild(button)
+    menuBaixo.appendChild(buttonBaixo)
+}
+function editarIcon(name, SVG){
     const button = document.createElement('button')
     const icon = document.createElement('div')
-
-    button.className = `button${objectSVG.name}`
+    button.className = `button${name}`
     icon.className = "icons"
-    icon.id = `${objectSVG.name}`
-    
+    icon.id = `${name}`
     
     // Definindo a URL da imagem como máscara
-    const maskUrl = `url('./icons/${objectSVG.SVG}')`;
+    const maskUrl = `url('./icons/${SVG}')`;
 
     icon.style.maskImage = maskUrl; 
     icon.style.maskSize = 'contain';
     icon.style.maskPosition = 'center';
     icon.style.maskRepeat = 'no-repeat';
-
     
     button.appendChild(icon)
-    menu.appendChild(button)
+    
+    return button
 }
 
 

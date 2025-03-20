@@ -39,6 +39,7 @@ body{
     background-image: var(--fundo);
     background-size: cover;
     background-repeat: no-repeat;
+    z-index: -1000;
     transform: 1s;
 }
 
@@ -60,7 +61,7 @@ body{
     width: auto;
 }
 
-#opcoes{
+#area-opcoes{
     position: relative;
     min-width: 230px;
     width: 20vw;
@@ -69,14 +70,28 @@ body{
     background-color: white;
     border-radius: 50px;
     border: 3px solid var(--gray-nasa);
+}
+
+.caixa-opcoes{
+    width: 100%;
+    height: 100%;
     display: flex;
     align-items: center;
     justify-content: space-between;
+    padding-inline: 2vh;
+    transition: 0.7s;
+}
+
+#opcoes{
     padding: 5px;
     padding-inline: 2vh;
 }
-
-
+#baixo-opcoes{
+    position: absolute;
+    top: 90%;
+    left: 0%;
+    z-index: 1;
+}
 #logo{
     position: absolute;
     left: 50%;
@@ -88,12 +103,11 @@ body{
     height: 5vw;
 }
 
-#opcoes button{
+.caixa-opcoes button{
     min-width: 25px;
     width: 3vh;
     min-height: 25px;
     height: 3vh;
-    border-radius: 50%;
     padding: 2px;
     background-color: var(--gray-nasa);
     overflow: hidden;
@@ -102,17 +116,31 @@ body{
     justify-content: center;
     transition: 0.5s;
 }
-#opcoes button:hover{
+.caixa-opcoes button:hover{
     transform: scale(1.2);
 }
 
-#opcoes button .icons{
+.caixa-opcoes button .icons{
     min-width: 20px;
     width: 2vh;
     min-height: 20px;
     height: 2vh;
     background-color: var(--red-nasa);
 }
+
+#opcoes button{
+    border-radius: 50%;
+}
+
+#baixo-opcoes button{
+    border-bottom-left-radius: 50%;
+    border-bottom-right-radius: 50%;
+}
+
+
+
+
+
 /* #planet{
     -webkit-mask: url('./icons/planet.svg');
     mask: url('./icons/planet.svg');
