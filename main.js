@@ -59,23 +59,41 @@ const icons = {SVG: [
 async function rendersIcons(objectSVG) {
     const menu = document.getElementById('opcoes')
     const menuBaixo = document.getElementById('baixo-opcoes')
+    const menuBotoes = document.querySelectorAll('#opcoes button')
+    const menuBaixoBotoes = document.querySelectorAll('#baixo-opcoes button')
     
 
     const button = editarIcon(objectSVG.name, objectSVG.SVG)
     button.addEventListener('click', () => {
-        menuBaixo.style.display = 'flex'
-        menuBaixo.style.top = '0%'
-        document.querySelectorAll('#opcoes button').forEach(button => button.style.display = 'none')
         
-        document.querySelector(`#baixo-opcoes .${button.className}`).style.display = 'none'
+        menuBaixo.style.top = '-100%'
+        menuBotoes.forEach(function(button){
+            if(button.className != `button${objectSVG.name}`){
+                button.style.visibility = 'hidden'
+                console.log("oi");
+            }
+        })
+        
+        menuBaixo.style.top = '0%'
+        menuBaixoBotoes.forEach(button => button.style.visibility = 'visible')
+        document.querySelector(`#baixo-opcoes .${button.className}`).style.visibility = 'hidden'
+        
     })
+
+    
     const buttonBaixo = editarIcon(objectSVG.name, objectSVG.SVG)
     buttonBaixo.addEventListener('click', () => {
+        menuBaixoBotoes.forEach(button => button.style.visibility = 'visible')
         // Esconde o botão clicado
-        buttonBaixo.style.top = '-100%'
+        menuBaixo.style.top = '0%'
         // Mostra apenas o botão correspondente da primeira div
-        document.querySelectorAll('#opcoes button').forEach(button => button.style.display = 'none');
-        document.querySelector(`#opcoes .${button.className}`).style.display = 'flex';
+        menuBotoes.forEach(function(button){
+            if(button.className != `button${objectSVG.name}`){
+                button.style.display = 'none'
+            }else{
+                button.style.display = 'flex'
+            }
+        })
     })
 
     menu.appendChild(button)
@@ -89,12 +107,12 @@ function editarIcon(name, SVG){
     icon.id = `${name}`
     
     // Definindo a URL da imagem como máscara
-    const maskUrl = `url('./icons/${SVG}')`;
+    const maskUrl = `url('./icons/${SVG}')`
 
-    icon.style.maskImage = maskUrl; 
-    icon.style.maskSize = 'contain';
-    icon.style.maskPosition = 'center';
-    icon.style.maskRepeat = 'no-repeat';
+    icon.style.maskImage = maskUrl;
+    icon.style.maskSize = 'contain'
+    icon.style.maskPosition = 'center'
+    icon.style.maskRepeat = 'no-repeat'
     
     button.appendChild(icon)
     

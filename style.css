@@ -72,6 +72,26 @@ body{
     border: 3px solid var(--gray-nasa);
 }
 
+.caixa{
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+}
+#baixo{
+    top: 90%;
+    /* background-color: #E31621; */
+}
+.camada{
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
 .caixa-opcoes{
     width: 100%;
     height: 100%;
@@ -80,17 +100,21 @@ body{
     justify-content: space-between;
     padding-inline: 2vh;
     transition: 0.7s;
+    z-index: 1;
 }
 
 #opcoes{
+    position: absolute;
     padding: 5px;
     padding-inline: 2vh;
+    z-index: 2;
 }
+
 #baixo-opcoes{
     position: absolute;
-    top: 90%;
+    top: -100%;
     left: 0%;
-    z-index: 1;
+    pointer-events: auto;
 }
 #logo{
     position: absolute;
@@ -129,12 +153,15 @@ body{
 }
 
 #opcoes button{
+    transition: 0.7s;
     border-radius: 50%;
 }
 
 #baixo-opcoes button{
+    transition: 0.7s;
     border-bottom-left-radius: 50%;
     border-bottom-right-radius: 50%;
+    pointer-events: auto;
 }
 
 
