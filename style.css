@@ -60,7 +60,16 @@ body{
     height: auto;
     width: auto;
 }
-
+#logo{
+    position: absolute;
+    left: 50%;
+    top: -55%;
+    transform: translate(-50%, -50%);
+    min-width: 60px;
+    width: 5vw;
+    min-height: 60px;
+    height: 5vw;
+}
 #area-opcoes{
     position: relative;
     min-width: 230px;
@@ -70,26 +79,6 @@ body{
     background-color: white;
     border-radius: 50px;
     border: 3px solid var(--gray-nasa);
-}
-
-.caixa{
-    position: absolute;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    overflow: hidden;
-}
-#baixo{
-    top: 90%;
-    /* background-color: #E31621; */
-}
-.camada{
-    position: relative;
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
 }
 
 .caixa-opcoes{
@@ -104,28 +93,10 @@ body{
 }
 
 #opcoes{
-    position: absolute;
     padding: 5px;
     padding-inline: 2vh;
-    z-index: 2;
 }
 
-#baixo-opcoes{
-    position: absolute;
-    top: -100%;
-    left: 0%;
-    pointer-events: auto;
-}
-#logo{
-    position: absolute;
-    left: 50%;
-    top: -55%;
-    transform: translate(-50%, -50%);
-    min-width: 60px;
-    width: 5vw;
-    min-height: 60px;
-    height: 5vw;
-}
 
 .caixa-opcoes button{
     min-width: 25px;
@@ -138,11 +109,22 @@ body{
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: 0.5s;
+    transition: 0.7s;
+    border-radius: 50%;
 }
-.caixa-opcoes button:hover{
+
+button.descer{
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 50%;
+    border-bottom-left-radius: 50%;
+    transform: translateY(130%);
+}
+
+.caixa-opcoes .cima:hover{
     transform: scale(1.2);
 }
+
 
 .caixa-opcoes button .icons{
     min-width: 20px;
@@ -151,19 +133,6 @@ body{
     height: 2vh;
     background-color: var(--red-nasa);
 }
-
-#opcoes button{
-    transition: 0.7s;
-    border-radius: 50%;
-}
-
-#baixo-opcoes button{
-    transition: 0.7s;
-    border-bottom-left-radius: 50%;
-    border-bottom-right-radius: 50%;
-    pointer-events: auto;
-}
-
 
 
 
@@ -176,3 +145,18 @@ body{
     -webkit-mask: url('./icons/star.svg');
     mask: url('./icons/star.svg');
 } */
+
+
+.card{
+    background-color: var(--gray-nasa);
+    color: black;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    padding: 8px;
+}
+
+#day{
+    height: 50vh;
+    width: 40vh;
+}

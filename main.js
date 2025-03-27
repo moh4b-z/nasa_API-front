@@ -58,53 +58,39 @@ const icons = {SVG: [
 
 async function rendersIcons(objectSVG) {
     const menu = document.getElementById('opcoes')
-    const menuBaixo = document.getElementById('baixo-opcoes')
-    const menuBotoes = document.querySelectorAll('#opcoes button')
-    const menuBaixoBotoes = document.querySelectorAll('#baixo-opcoes button')
+    
     
 
-    const button = editarIcon(objectSVG.name, objectSVG.SVG)
-    button.addEventListener('click', () => {
+    const buttonI = editarIcon(objectSVG.name, objectSVG.SVG)
+    buttonI.addEventListener('click', () => {
+        const menuBotoes = document.querySelectorAll('#opcoes button')
+        if((buttonI.classList.contains(`cima`))){
+            menuBotoes.forEach(function(button){
+                if(!(button.classList.contains(`button${objectSVG.name}`))){
+                    button.classList.toggle("descer")
+                    button.classList.toggle("cima")
+                } 
+            })
+        }else if((buttonI.classList.contains(`descer`))){
+            menuBotoes.forEach(function(button){
+                button.classList.toggle("descer")
+                button.classList.toggle("cima")
+            })
+        }
         
-        menuBaixo.style.top = '-100%'
-        menuBotoes.forEach(function(button){
-            if(button.className != `button${objectSVG.name}`){
-                button.style.visibility = 'hidden'
-                console.log("oi");
-            }
-        })
-        
-        menuBaixo.style.top = '0%'
-        menuBaixoBotoes.forEach(button => button.style.visibility = 'visible')
-        document.querySelector(`#baixo-opcoes .${button.className}`).style.visibility = 'hidden'
         
     })
 
-    
-    const buttonBaixo = editarIcon(objectSVG.name, objectSVG.SVG)
-    buttonBaixo.addEventListener('click', () => {
-        menuBaixoBotoes.forEach(button => button.style.visibility = 'visible')
-        // Esconde o botão clicado
-        menuBaixo.style.top = '0%'
-        // Mostra apenas o botão correspondente da primeira div
-        menuBotoes.forEach(function(button){
-            if(button.className != `button${objectSVG.name}`){
-                button.style.display = 'none'
-            }else{
-                button.style.display = 'flex'
-            }
-        })
-    })
-
-    menu.appendChild(button)
-    menuBaixo.appendChild(buttonBaixo)
+    menu.appendChild(buttonI)
 }
 function editarIcon(name, SVG){
     const button = document.createElement('button')
     const icon = document.createElement('div')
     button.className = `button${name}`
+    button.classList.add("cima")
+    button.id = `${name}`
     icon.className = "icons"
-    icon.id = `${name}`
+    
     
     // Definindo a URL da imagem como máscara
     const maskUrl = `url('./icons/${SVG}')`
@@ -123,3 +109,20 @@ function editarIcon(name, SVG){
 BackgroundImageRandom(IMGreserve)
 rendersLogo(logo.img)
 icons.SVG.forEach(rendersIcons)
+
+const Planet = document.getElementById('Planet')
+
+Planet.addEventListener('click', renderCardDia())
+
+async function renderCardDia(){
+    const data = getSpaceImageDay()
+    const card = document.createElement('div')
+    card.className = "card"
+    card.id = "day"
+
+    data.copyright
+    data.date
+    data.explanation
+    data.hdurl
+    data.title
+}
