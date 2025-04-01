@@ -109,8 +109,20 @@ rendersLogo(logo.img)
 icons.SVG.forEach(rendersIcons)
 
 const Planet = document.getElementById('Planet')
+const Star = document.getElementById('Star')
 
 Planet.addEventListener('click', renderCardDia)
+Star.addEventListener('click', CriarListarStar)
+
+async function CriarListarStar() {
+    const visualisacao = document.getElementById('visualisacao')
+    const areaOpcoes = document.getElementById('area-opcoes')
+    if (document.getElementById("day")) {
+        document.getElementById("day").remove()
+        areaOpcoes.classList.toggle("area-opcoes-Planet")
+        areaOpcoes.classList.toggle("area-opcoes")
+    }
+}
 
 async function renderCardDia(){
     const visualisacao = document.getElementById('visualisacao')
