@@ -27,6 +27,7 @@ input{
     --red-nasa: #E31621;
     --gray-nasa: #9c9c9c;
     --fundo: url();
+    --altura-opcoes: 2vh;
 }
 
 body{
@@ -40,7 +41,7 @@ body{
     background-size: cover;
     background-repeat: no-repeat;
     z-index: -1000;
-    transform: 1s;
+    transition: 1s;
 }
 
 .filtro{
@@ -73,12 +74,27 @@ body{
 #area-opcoes{
     position: relative;
     min-width: 230px;
-    width: 20vw;
-    min-height: 50px;
+    
+    min-height: 40px;
     height: 4vh;
     background-color: white;
-    border-radius: 50px;
     border: 3px solid var(--gray-nasa);
+    transition: 1s;
+}
+
+.area-opcoes{
+    border-top-left-radius: 40px;
+    border-top-right-radius: 40px;
+    border-bottom-right-radius: 40px;
+    border-bottom-left-radius: 40px;
+    width: 20vw;
+}
+.area-opcoes-Planet{
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 0px;
+    border-bottom-left-radius: 0px;
+    width: 55vw;
 }
 
 .caixa-opcoes{
@@ -92,9 +108,11 @@ body{
     z-index: 1;
 }
 
+
+
 #opcoes{
     padding: 5px;
-    padding-inline: 2vh;
+    padding-inline: 10%;
 }
 
 
@@ -118,7 +136,7 @@ button.descer{
     border-top-right-radius: 0;
     border-bottom-right-radius: 50%;
     border-bottom-left-radius: 50%;
-    transform: translateY(130%);
+    transform: translateY(calc((var(--altura-opcoes) + 100%) / 1.1));
 }
 
 .caixa-opcoes .cima:hover{
@@ -148,15 +166,52 @@ button.descer{
 
 
 .card{
-    background-color: var(--gray-nasa);
+    background-color: white;
+    border-radius: 50px;
+    border: 3px solid var(--gray-nasa);
     color: black;
     border-radius: 8px;
     display: flex;
     flex-direction: column;
-    padding: 8px;
+    padding: 10px;
+    overflow-y: auto;
+    scrollbar-width: none; /* Para navegadores como Firefox */
+    -ms-overflow-style: none;  /* Para navegadores antigos do Internet Explorer */
+}
+.card::-webkit-scrollbar {
+    width: 0px;  /* Esconde a barra de rolagem */
+}
+
+.card div{
+    width: 100%;
+}
+.card div h2, .card div span{
+    display: inline-block;
+    width: 100%;
+}
+.card div h2{
+    color: var(--blue-nasa);
+    font-size: 24px;
+}
+.card div span{
+    color: var(--red-nasa);
+    text-align: end;
+    font-size: 12px;
+}
+.card video, .card img{
+    width: 100%;
+    max-height: 50%;
+    border: 1px solid var(--gray-nasa);
+}
+.card p{
+    line-height: 1.5;
 }
 
 #day{
-    height: 50vh;
-    width: 40vh;
+    height: 60vh;
+    width: 55vw;
+    border-top-left-radius: 0px;
+    border-top-right-radius: 0px;
+    border-bottom-right-radius: 20px;
+    border-bottom-left-radius: 20px;
 }

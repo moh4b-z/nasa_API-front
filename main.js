@@ -58,8 +58,6 @@ const icons = {SVG: [
 
 async function rendersIcons(objectSVG) {
     const menu = document.getElementById('opcoes')
-    
-    
 
     const buttonI = editarIcon(objectSVG.name, objectSVG.SVG)
     buttonI.addEventListener('click', () => {
@@ -112,17 +110,95 @@ icons.SVG.forEach(rendersIcons)
 
 const Planet = document.getElementById('Planet')
 
-Planet.addEventListener('click', renderCardDia())
+Planet.addEventListener('click', renderCardDia)
 
 async function renderCardDia(){
-    const data = getSpaceImageDay()
-    const card = document.createElement('div')
-    card.className = "card"
-    card.id = "day"
+    const visualisacao = document.getElementById('visualisacao')
+    const areaOpcoes = document.getElementById('area-opcoes')
+    if (document.getElementById("day")) {
+        document.getElementById("day").remove()
+        areaOpcoes.classList.toggle("area-opcoes-Planet")
+        areaOpcoes.classList.toggle("area-opcoes")
+    } else {
+        
 
-    data.copyright
-    data.date
-    data.explanation
-    data.hdurl
-    data.title
+        areaOpcoes.classList.toggle("area-opcoes-Planet")
+        areaOpcoes.classList.toggle("area-opcoes")
+        const data = await getSpaceImageDay()
+        const card = document.createElement('div')
+        card.className = "card"
+        card.id = "day"
+        
+        const top = document.createElement('div')
+
+        const h2 = document.createElement('h2')
+        h2.textContent = data.title
+
+        const p = document.createElement('p')
+        p.textContent = data.explanation
+
+        const span = document.createElement('span')
+        span.textContent = data.date
+
+        top.appendChild(h2)
+        top.appendChild(span)
+        card.appendChild(top)
+
+        if(data.media_type === 'video'){
+            const video = criarImgOuVideo(data.media_type, data.hdurl || data.url)
+            card.appendChild(video)
+        }else if(data.media_type === 'image'){
+            const img = criarImgOuVideo(data.media_type, data.hdurl || data.url)
+            card.appendChild(img)
+        }
+        // data.copyright
+        
+        
+        card.appendChild(p)
+        visualisacao.appendChild(card)
+    }
+    
+      
+}
+function criarImgOuVideo(type, url) {
+    // Verifica se a URL é do YouTube
+    const isYouTube = url.includes("youtube.com") || url.includes("youtu.be");
+
+    if (type === 'video') {
+        if (isYouTube) {
+            // Se for do YouTube, criar um iframe para exibir o vídeo
+            const iframe = document.createElement('iframe');
+            iframe.src = `https://www.youtube.com/embed/${extrairIDDoVideo(url)}`;
+            iframe.frameBorder = "0";
+            iframe.allow = "accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture";
+            iframe.allowFullscreen = true;
+            iframe.style.width = "100%";
+            iframe.style.height = "auto";
+            return iframe;
+        } else {
+            // Se não for do YouTube, criar um elemento de vídeo normal
+            const element = document.createElement('video');
+            element.src = url;
+            element.autoplay = true;
+            element.loop = true;
+            element.muted = true;
+            element.style.pointerEvents = 'none';
+            element.controls = false;
+            element.style.width = "100%";
+            element.style.height = "auto";
+            return element;
+        }
+    } else if (type === 'image') {
+        const element = document.createElement('img');
+        element.src = url;
+        return element;
+    }
+
+    return null;
+}
+
+function extrairIDDoVideo(url) {
+    const regex = /(?:https?:\/\/(?:www\.)?(?:youtube\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=)|youtu\.be\/))([a-zA-Z0-9_-]{11})(?:[^\w\s]|$)/
+    const match = url.match(regex)
+    return match ? match[1] : null
 }
