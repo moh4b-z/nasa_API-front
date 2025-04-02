@@ -175,11 +175,11 @@ button.descer{
     flex-direction: column;
     padding: 10px;
     overflow-y: auto;
-    scrollbar-width: none; /* Para navegadores como Firefox */
-    -ms-overflow-style: none;  /* Para navegadores antigos do Internet Explorer */
+    scrollbar-width: none;
+    -ms-overflow-style: none;
 }
 .card::-webkit-scrollbar {
-    width: 0px;  /* Esconde a barra de rolagem */
+    width: 0px;
 }
 
 .card div{
@@ -214,4 +214,28 @@ button.descer{
     border-top-right-radius: 0px;
     border-bottom-right-radius: 20px;
     border-bottom-left-radius: 20px;
+}
+
+#lista-cards{
+    display: flex;
+    flex-wrap: nowrap;
+    width: 60vw;
+    height: 70vh;
+    gap: 5vw;
+    padding: 1vh;
+    overflow-y: hidden;
+    overflow-x: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    white-space: nowrap;
+}
+
+#lista-cards::-webkit-scrollbar {
+    width: 0px;
+}
+
+#lista-cards .card{
+    flex: 0 0 50%; /* Evita que os cards diminuam */
+    height: 100%;
+    min-width: 30vw;
 }

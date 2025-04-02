@@ -1,32 +1,8 @@
 'use script'
+import renderCardDia from "./JS/Planet.js"
+import CriarListarStar from "./JS/Star.js"
+import {getRandomSpaceImage} from "./JS/api.js"
 
-
-const API_KEY = "mlbaWubHYWl4A3phtsnhRlwL8mPBSi5tWnFBBurP"
-
-
-
-
-async function getSpaceImageDay() {
-    const url = `https://api.nasa.gov/planetary/apod?api_key=${API_KEY}`
-    const response = await fetch(url)
-    const data = await response.json()
-    
-    return data
-}
-
-
-async function getRandomSpaceImage(IWant) {
-    const url = `https://images-api.nasa.gov/search?q=${IWant}&media_type=image`;
-    const response = await fetch(url)
-    const data = await response.json()
-
-    const images = data.collection.items
-    if (images.length > 0) {
-        const randomIndex = Math.floor(Math.random() * images.length)
-        return images[randomIndex].links[0].href
-    }
-    return null // Caso não encontre imagens
-}
 
 const IMGreserve = {reserveIMG: "reserveImg.jpeg"}
 async function BackgroundImageRandom(reserve) {
@@ -114,103 +90,37 @@ const Star = document.getElementById('Star')
 Planet.addEventListener('click', renderCardDia)
 Star.addEventListener('click', CriarListarStar)
 
-async function CriarListarStar() {
-    const visualisacao = document.getElementById('visualisacao')
-    const areaOpcoes = document.getElementById('area-opcoes')
-    if (document.getElementById("day")) {
-        document.getElementById("day").remove()
-        areaOpcoes.classList.toggle("area-opcoes-Planet")
-        areaOpcoes.classList.toggle("area-opcoes")
-    }
-}
 
-async function renderCardDia(){
-    const visualisacao = document.getElementById('visualisacao')
-    const areaOpcoes = document.getElementById('area-opcoes')
-    if (document.getElementById("day")) {
-        document.getElementById("day").remove()
-        areaOpcoes.classList.toggle("area-opcoes-Planet")
-        areaOpcoes.classList.toggle("area-opcoes")
-    } else {
-        
 
-        areaOpcoes.classList.toggle("area-opcoes-Planet")
-        areaOpcoes.classList.toggle("area-opcoes")
-        const data = await getSpaceImageDay()
-        const card = document.createElement('div')
-        card.className = "card"
-        card.id = "day"
-        
-        const top = document.createElement('div')
 
-        const h2 = document.createElement('h2')
-        h2.textContent = data.title
 
-        const p = document.createElement('p')
-        p.textContent = data.explanation
+const scrollContainer = document.getElementById('lista-cards')
 
-        const span = document.createElement('span')
-        span.textContent = data.date
+let isDown = false
+let startX
+let scrollLeft
 
-        top.appendChild(h2)
-        top.appendChild(span)
-        card.appendChild(top)
+scrollContainer.addEventListener('mousedown', (e) => {
+    isDown = true
+    scrollContainer.classList.add('active')
+    startX = e.pageX - scrollContainer.offsetLeft
+    scrollLeft = scrollContainer.scrollLeft
+})
 
-        if(data.media_type === 'video'){
-            const video = criarImgOuVideo(data.media_type, data.hdurl || data.url)
-            card.appendChild(video)
-        }else if(data.media_type === 'image'){
-            const img = criarImgOuVideo(data.media_type, data.hdurl || data.url)
-            card.appendChild(img)
-        }
-        // data.copyright
-        
-        
-        card.appendChild(p)
-        visualisacao.appendChild(card)
-    }
-    
-      
-}
-function criarImgOuVideo(type, url) {
-    // Verifica se a URL é do YouTube
-    const isYouTube = url.includes("youtube.com") || url.includes("youtu.be");
+scrollContainer.addEventListener('mouseleave', () => {
+    isDown = false
+    scrollContainer.classList.remove('active')
+})
 
-    if (type === 'video') {
-        if (isYouTube) {
-            // Se for do YouTube, criar um iframe para exibir o vídeo
-            const iframe = document.createElement('iframe');
-            iframe.src = `https://www.youtube.com/embed/${extrairIDDoVideo(url)}`;
-            iframe.frameBorder = "0";
-            iframe.allow = "accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture";
-            iframe.allowFullscreen = true;
-            iframe.style.width = "100%";
-            iframe.style.height = "auto";
-            return iframe;
-        } else {
-            // Se não for do YouTube, criar um elemento de vídeo normal
-            const element = document.createElement('video');
-            element.src = url;
-            element.autoplay = true;
-            element.loop = true;
-            element.muted = true;
-            element.style.pointerEvents = 'none';
-            element.controls = false;
-            element.style.width = "100%";
-            element.style.height = "auto";
-            return element;
-        }
-    } else if (type === 'image') {
-        const element = document.createElement('img');
-        element.src = url;
-        return element;
-    }
+scrollContainer.addEventListener('mouseup', () => {
+    isDown = false
+    scrollContainer.classList.remove('active')
+})
 
-    return null;
-}
-
-function extrairIDDoVideo(url) {
-    const regex = /(?:https?:\/\/(?:www\.)?(?:youtube\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=)|youtu\.be\/))([a-zA-Z0-9_-]{11})(?:[^\w\s]|$)/
-    const match = url.match(regex)
-    return match ? match[1] : null
-}
+scrollContainer.addEventListener('mousemove', (e) => {
+    if (!isDown) return
+    e.preventDefault()
+    const x = e.pageX - scrollContainer.offsetLeft
+    const walk = (x - startX) * 2 // Velocidade do arrasto
+    scrollContainer.scrollLeft = scrollLeft - walk
+})
