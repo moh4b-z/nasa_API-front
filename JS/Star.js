@@ -1,4 +1,4 @@
-import {criarImgOuVideo} from "./cards.js"
+import {criarCard} from "./cards.js"
 
 export default async function CriarListarStar() {
     const visualisacao = document.getElementById('visualisacao')
@@ -8,4 +8,6 @@ export default async function CriarListarStar() {
         areaOpcoes.classList.toggle("area-opcoes-Planet")
         areaOpcoes.classList.toggle("area-opcoes")
     }
+    const listaCards = document.createElement("div")
+    listaCards.className = "lista-cards"
 }

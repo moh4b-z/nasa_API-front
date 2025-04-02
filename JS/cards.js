@@ -1,4 +1,43 @@
 
+export function criarCard(dados) {
+    const card = document.createElement("div")
+    card.className = "card"
+
+    // Título
+    const h2 = document.createElement("h2")
+    h2.textContent = dados.data[0].title
+    card.appendChild(h2)
+
+    // Descrição
+    const p = document.createElement("p")
+    p.textContent = dados.data[0].description
+    card.appendChild(p)
+
+    // Data de criação
+    const spanDate = document.createElement("span")
+    spanDate.textContent = `Data: ${new Date(dados.data[0].date_created).toLocaleDateString()}`
+    card.appendChild(spanDate)
+
+    // Centro responsável
+    const spanCenter = document.createElement("span")
+    spanCenter.textContent = `Centro: ${dados.data[0].center}`
+    card.appendChild(spanCenter)
+
+    // Criador secundário (se existir)
+    if (dados.data[0].secondary_creator) {
+        const spanCreator = document.createElement("span")
+        spanCreator.textContent = `Criado por: ${dados.data[0].secondary_creator}`
+        card.appendChild(spanCreator)
+    }
+
+    // Imagem
+    const img = document.createElement("img")
+    img.src = dados.href
+    img.alt = dados.data[0].title
+    card.appendChild(img)
+
+    return card
+}
 
 
 export function criarImgOuVideo(type, url) {
