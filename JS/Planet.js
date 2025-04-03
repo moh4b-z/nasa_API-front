@@ -8,9 +8,16 @@ export default async function renderCardDia(){
         document.getElementById("day").remove()
         areaOpcoes.classList.toggle("area-opcoes-Planet")
         areaOpcoes.classList.toggle("area-opcoes")
-    } else {
+    }else if (document.getElementById("lista-cards")) {
+        document.getElementById("lista-cards").className = "lista-cards-menor"
+        setTimeout(() => {
+            document.getElementById("lista-cards").remove()
+        }, 1200)
+        setTimeout( async () => {
+            await renderCardDia()
+        }, 1250)
         
-
+    } else {
         areaOpcoes.classList.toggle("area-opcoes-Planet")
         areaOpcoes.classList.toggle("area-opcoes")
         const data = await getSpaceImageDay()
@@ -33,19 +40,11 @@ export default async function renderCardDia(){
         top.appendChild(span)
         card.appendChild(top)
 
-        if(data.media_type === 'video'){
-            const video = criarImgOuVideo(data.media_type, data.hdurl || data.url)
-            card.appendChild(video)
-        }else if(data.media_type === 'image'){
-            const img = criarImgOuVideo(data.media_type, data.hdurl || data.url)
-            card.appendChild(img)
-        }
-        // data.copyright
-        
+        const elemento = criarImgOuVideo(data.media_type, data.hdurl || data.url)
+        card.appendChild(elemento)
         
         card.appendChild(p)
         visualisacao.appendChild(card)
     }
-      
 }
 

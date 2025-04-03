@@ -22,6 +22,9 @@ async function rendersLogo(url) {
     logo.id = "logo"
     logo.alt = "Logo da NASA"
     logo.src = `./img/${url}`
+    logo.addEventListener('click', ()=>{
+        logo.classList.toggle("video")
+    })
 
     menu.appendChild(logo)
 }
@@ -93,34 +96,3 @@ Star.addEventListener('click', CriarListarStar)
 
 
 
-
-// const scrollContainer = document.getElementById('lista-cards')
-
-// let isDown = false
-// let startX
-// let scrollLeft
-
-// scrollContainer.addEventListener('mousedown', (e) => {
-//     isDown = true
-//     scrollContainer.classList.add('active')
-//     startX = e.pageX - scrollContainer.offsetLeft
-//     scrollLeft = scrollContainer.scrollLeft
-// })
-
-// scrollContainer.addEventListener('mouseleave', () => {
-//     isDown = false
-//     scrollContainer.classList.remove('active')
-// })
-
-// scrollContainer.addEventListener('mouseup', () => {
-//     isDown = false
-//     scrollContainer.classList.remove('active')
-// })
-
-// scrollContainer.addEventListener('mousemove', (e) => {
-//     if (!isDown) return
-//     e.preventDefault()
-//     const x = e.pageX - scrollContainer.offsetLeft
-//     const walk = (x - startX) * 2 // Velocidade do arrasto
-//     scrollContainer.scrollLeft = scrollLeft - walk
-// })

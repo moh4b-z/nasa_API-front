@@ -3,42 +3,36 @@ export async function criarCard(dados) {
     const card = document.createElement("div")
     card.className = "card"
 
-    // Título
     const h2 = document.createElement("h2")
     h2.textContent = dados.data[0].title
     card.appendChild(h2)
 
-    // Descrição
     const p = document.createElement("p")
     p.textContent = dados.data[0].description
     card.appendChild(p)
 
-    // Data de criação
     const spanDate = document.createElement("span")
     spanDate.textContent = `Data: ${new Date(dados.data[0].date_created).toLocaleDateString()}`
     card.appendChild(spanDate)
 
-    // Centro responsável
     const spanCenter = document.createElement("span")
     spanCenter.textContent = `Centro: ${dados.data[0].center}`
     card.appendChild(spanCenter)
 
-    // Criador secundário (se existir)
     if (dados.data[0].secondary_creator) {
         const spanCreator = document.createElement("span")
         spanCreator.textContent = `Criado por: ${dados.data[0].secondary_creator}`
         card.appendChild(spanCreator)
     }
 
-    // Imagem
-    const img = document.createElement("img")
-    img.src = await getFirstElement(dados.href)
-    img.alt = dados.data[0].title
-    card.appendChild(img)
+    
+    const urlDaImgOuVideo = await buscarLink(dados.href)
+    const elemento = criarImgOuVideo(dados.data[0].media_type, urlDaImgOuVideo)
+    card.appendChild(elemento)
 
     return card
 }
-async function getFirstElement(apiUrl) {
+async function buscarLink(apiUrl) {
     try {
         const response = await fetch(apiUrl);
         if (!response.ok) {
@@ -58,7 +52,6 @@ async function getFirstElement(apiUrl) {
     }
 }
 
-
 export function criarImgOuVideo(type, url) {
     // Verifica se a URL é do YouTube
     const isYouTube = url.includes("youtube.com") || url.includes("youtu.be");
@@ -67,14 +60,12 @@ export function criarImgOuVideo(type, url) {
         if (isYouTube) {
             const iframe = document.createElement('iframe')
             iframe.src = `https://www.youtube.com/embed/${extrairIDDoVideo(url)}`
-            iframe.frameBorder = "0"
             iframe.allow = "accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
             iframe.allowFullscreen = true
             iframe.style.width = "100%"
             iframe.style.height = "auto"
             return iframe
         } else {
-            // Se não for do YouTube, criar um elemento de vídeo normal
             const element = document.createElement('video')
             element.src = url
             element.autoplay = true

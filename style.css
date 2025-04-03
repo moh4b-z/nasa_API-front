@@ -136,7 +136,7 @@ button.descer{
     border-top-right-radius: 0;
     border-bottom-right-radius: 50%;
     border-bottom-left-radius: 50%;
-    transform: translateY(calc((var(--altura-opcoes) + 100%) / 1.1));
+    transform: translateY(calc((var(--altura-opcoes) + 100%) / 1.4));
 }
 
 .caixa-opcoes .cima:hover{
@@ -177,29 +177,31 @@ button.descer{
     overflow-y: auto;
     scrollbar-width: none;
     -ms-overflow-style: none;
+    gap: 10px;
+}
+.card *{
+    width: 100%;
 }
 .card::-webkit-scrollbar {
     width: 0px;
 }
 
-.card div{
-    width: 100%;
-}
-.card div h2, .card div span{
+.card div h2, .card div span, .card h2, .card span, .card p{
     display: inline-block;
-    width: 100%;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    white-space: normal;
 }
-.card div h2{
+.card div h2, .card h2{
     color: var(--blue-nasa);
     font-size: 24px;
 }
-.card div span{
+.card div span, .card span{
     color: var(--red-nasa);
     text-align: end;
     font-size: 12px;
 }
 .card video, .card img{
-    width: 100%;
     max-height: 50%;
     border: 1px solid var(--gray-nasa);
 }
@@ -219,15 +221,24 @@ button.descer{
 #lista-cards{
     display: flex;
     flex-wrap: nowrap;
-    width: 60vw;
-    height: 70vh;
-    gap: 5vw;
-    padding: 1vh;
     overflow-y: hidden;
     overflow-x: auto;
     scrollbar-width: none;
     -ms-overflow-style: none;
     white-space: nowrap;
+    transition: 1.2s;
+}
+.lista-cards{
+    width: 60vw;
+    height: 70vh;
+    gap: 5vw;
+    padding: 1vh;
+}
+.lista-cards-menor{
+    width: 0.01px;
+    height: 0.01px;
+    gap: 0vw;
+    padding: 0vh;
 }
 
 #lista-cards::-webkit-scrollbar {
