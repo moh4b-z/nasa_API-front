@@ -1,5 +1,5 @@
 
-export function criarCard(dados) {
+export async function criarCard(dados) {
     const card = document.createElement("div")
     card.className = "card"
 
@@ -32,11 +32,30 @@ export function criarCard(dados) {
 
     // Imagem
     const img = document.createElement("img")
-    img.src = dados.href
+    img.src = await getFirstElement(dados.href)
     img.alt = dados.data[0].title
     card.appendChild(img)
 
     return card
+}
+async function getFirstElement(apiUrl) {
+    try {
+        const response = await fetch(apiUrl);
+        if (!response.ok) {
+            throw new Error(`Erro na requisição: ${response.status}`)
+        }
+        
+        const data = await response.json()
+        
+        if (Array.isArray(data) && data.length > 0) {
+            return data[0] // Retorna o primeiro elemento da lista
+        } else {
+            throw new Error("A resposta da API não é uma lista válida ou está vazia.")
+        }
+    } catch (error) {
+        console.error("Erro ao obter o primeiro elemento:", error)
+        return null
+    }
 }
 
 

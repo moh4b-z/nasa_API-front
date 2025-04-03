@@ -1,4 +1,5 @@
 import {criarCard} from "./cards.js"
+import {getListaDeElementos} from "./api.js"
 
 export default async function CriarListarStar() {
     const visualisacao = document.getElementById('visualisacao')
@@ -9,5 +10,13 @@ export default async function CriarListarStar() {
         areaOpcoes.classList.toggle("area-opcoes")
     }
     const listaCards = document.createElement("div")
-    listaCards.className = "lista-cards"
+    listaCards.id = "lista-cards"
+
+    const intens = await getListaDeElementos("supernova", "image")
+    intens.forEach( async function(intem){
+        const card = await criarCard(intem)
+        listaCards.appendChild(card)
+    })
+
+    visualisacao.appendChild(listaCards)
 }
